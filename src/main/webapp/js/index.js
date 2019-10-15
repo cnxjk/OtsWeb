@@ -25,12 +25,11 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 recorderWorker.onmessage = function (e) {
   buffer.push(...e.data.buffer)
 }
-
 class IatRecorder {
   constructor (config) {
     this.config = config
     this.state = 'ing'
-    this.language = config.language || 'zh_cn'
+    this.language = config.language || 'en_us'
     this.accent = config.accent || 'mandarin'
 
     // 以下信息在控制台-我的应用-语音听写（流式版）页面获取
@@ -38,7 +37,6 @@ class IatRecorder {
     this.apiKey = '191c440025aa729d64f2c28e6accf898'
     this.apiSecret = '1db98f9db89fbf0d692d73874f58a39d'
   }
-
   start () {
     this.stop()
     if (navigator.getUserMedia && AudioContext) {
@@ -159,7 +157,7 @@ class IatRecorder {
         'app_id': this.appId
       },
       'business': {
-        'language': this.language, // 小语种可在控制台--语音听写（流式）--方言/语种处添加试用
+        'language': $('select option:selected').val(), // 小语种可在控制台--语音听写（流式）--方言/语种处添加试用
         'domain': 'iat',
         'accent': this.accent, // 中文方言可在控制台--语音听写（流式）--方言/语种处添加试用
         'vad_eos': 5000,
@@ -213,12 +211,8 @@ class IatRecorder {
       this.ws.close()
       setTimeout(function () {
           var resultStr = $('#result_output').text();
-          $.post("/OtsWeb/webOTS", {
-          requestText : resultStr
-      }, function(dataJson, status) {
-       $("#translation2").val(dataJson.data.result.trans_result.dst);
-      $("#translate").attr("src",dataJson.fileWavName);
-        });
+          $("#translation1").val(resultStr);
+          translation();
       }, 1000);
       
     }
@@ -356,11 +350,25 @@ class IatTaste {
 }
 var iatTaste = new IatTaste()
 iatTaste.init()
-
-function translation(data) {
-	var count = data.value;
+// 机器翻译
+function translation() {
+	var count =$("#translation1").val();
+	 var ent = "intp65";
+     switch ($('select option:selected').val()) {
+	case 'en_us':
+		ent = "intp65_en";
+		break;
+	case 'zh_cn':
+		ent = "intp65";
+	default:
+		ent = "aisound";
+		break;
+	}
 	$.post("/OtsWeb/webOTS", {
-		requestText : count
+		requestText : count,
+		requestEnt:ent,
+		FROM:$("#select1 option:selected").val(),
+		TO:$("#select2 option:selected").val()
 	}, function(dataJson, status) {
 		$("#translation2").val(dataJson.data.result.trans_result.dst);
 		$("#translate").attr("src",dataJson.fileWavName);

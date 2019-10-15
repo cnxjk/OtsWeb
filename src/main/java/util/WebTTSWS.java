@@ -1,4 +1,4 @@
-package controller;
+package util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,11 +48,20 @@ public class WebTTSWS {
 	public static final Gson json = new Gson();
 	public static String text;
 	@SuppressWarnings("null")
-	public  String getVoice(String retext,String projectPath) throws Exception {
+	/**
+	 * 
+	 * @param retext 需要合成的内容
+	 * @param projectPath 合成文件保存路径
+	 * @param ent 引擎类型
+	 * @return
+	 * @throws Exception
+	 */
+	public  String getVoice(String retext,String projectPath,final String ent) throws Exception {
 		if(retext == null && retext.equals("")) {
 			text ="翻译失败！";
 		}else {
 			text = retext;
+			System.out.println(text);
 		}
         filePath = projectPath;
         System.out.println(filePath);
@@ -91,11 +100,11 @@ public class WebTTSWS {
 				// 填充business
 				business.addProperty("aue", "raw");
 				business.addProperty("tte", "UTF8");
-				business.addProperty("ent", "intp65");
+				business.addProperty("ent", ent);
 				business.addProperty("vcn", "xioyan");// 到控制台-我的应用-语音合成-添加试用或购买发音人，添加后即显示该发音人参数值，若试用未添加的发音人会报错11200
 				business.addProperty("pitch", 50);
-				business.addProperty("bgs", 1);
-				business.addProperty("speed", 50);
+				business.addProperty("bgs", 0);
+				business.addProperty("speed", 20);
 				// 填充data
 				data.addProperty("status", 2);// 固定位2
 				data.addProperty("text", Base64.getEncoder().encodeToString(text.getBytes()));

@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import util.HttpUtil;
+import util.WebTTSWS;
 
 
 
@@ -56,9 +57,11 @@ public class WebOTS extends HttpServlet {
 
 	// 语种列表参数值请参照接口文档：https://doc.xfyun.cn/rest_api/机器翻译.html
 	// 源语种
-	private static final String FROM = "cn";
+	private static  String FROM = "cn";
 	// 目标语种
-	private static final String TO = "en";
+	private static  String TO = "en";
+	
+	private static String  ent = "intp65";
 	// 翻译文本
 	//private static final String TEXT = "中华人民共和国于1949年成立";
 
@@ -76,6 +79,9 @@ public class WebOTS extends HttpServlet {
 			System.out.println("Appid 或APIKey 或APISecret 为空！请打开demo代码，填写相关信息。");
 			return;
 		}
+		FROM = req.getParameter("FROM");
+		TO = req.getParameter("TO");
+		ent = req.getParameter("requestEnt");
 		String requestText = null;
 		String body;
 		try {
@@ -103,7 +109,7 @@ public class WebOTS extends HttpServlet {
 				System.out.println(dst);
 				String projectPath=  getServletContext().getRealPath("/resources/");
 				WebTTSWS wts = new WebTTSWS();
-				String fileWavName = wts.getVoice(dst,projectPath);
+				String fileWavName = wts.getVoice(dst,projectPath,ent);
 				jsonObject.put("fileWavName", fileWavName);
 				out.write(jsonObject.toJSONString());
 			} else {
