@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>语音翻译</title>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	width: 200px;
+	height: 200px;
+}
+
+.center-in-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+</style>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+	<!-- ====================================================================== -->
+	<audio src="" id="translate" hidden="true" controls preload="none"></audio>
+	<div class="output-box" id="result_output" hidden="true"></div>
+	<div class="center-in-center" id="microphone">
+		<span class="total-time"> <span class="used-time">00: 00</span>
+			/ 01: 00
+		</span>
+		<div>
+			<img alt="" src="font/microphone.png" class="layui-btn">
+		</div>
+		<button type="button"
+			class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius"
+			id="playAudioName" onclick="playAudio()" hidden>播放翻译</button>
+	</div>
+
+</body>
+<script src="js/hmac-sha256.js"></script>
+<script src="js/enc-base64-min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script src="js/index2.js"></script>
+<script type="text/javascript">
+	layui
+			.define(
+					[ 'layer', 'form', 'element' ],
+					function(exports) {
+						var layer = layui.layer, form = layui.form, element = layui.element;
+						$("#microphone img")
+								.mousedown(
+										function(event) {
+											$("#microphone img")
+													.attr("class",
+															"layui-anim layui-anim-scale layui-anim-loop layui-btn ");
+										});
+						$("#microphone img")
+								.mouseup(
+										function(event) {
+											$("#microphone img")
+													.attr("class",
+															"layui-anim layui-anim-scale layui-btn ");
+										});
+					});
+</script>
+</html>

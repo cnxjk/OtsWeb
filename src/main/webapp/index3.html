@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>语音翻译</title>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+	<div style=" text-align:center;">
+		<div class="service-item service-item-taste">
+			<h2 class="service-item-title">产品体验</h2>
+			<div id="radioName">
+			<input type="radio" value="0" name="cnonen" checked="checked" />中转英 <input
+				type="radio" value="1" name="cnonen" />英转中
+			</div>
+			<div class="service-item-content service-item-taste-content">
+				<div class="taste-content">
+					<button class="taste-button ready-button" id="taste_button">开始识别</button>
+				</div>
+				<div class="start-taste">
+					<div class="start-taste-left">
+						<div class="time-box">
+							<span class="total-time"> <span class="used-time">00:
+									00</span> / 01: 00
+							</span>
+						</div>
+						<div class="start-taste-button">
+							<button class="taste-button start-button">结束识别</button>
+						</div>
+					</div>
+					<div class="output-box" id="result_output" hidden="true"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div>
+		<button type="button"
+			class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius"
+			id="playAudioName" onclick="playAudio()">播放翻译</button>
+	</div>
+	<audio src="" id="translate" hidden="true" controls preload="none"></audio>
+</body>
+<script src="js/hmac-sha256.js"></script>
+<script src="js/enc-base64-min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script src="js/index3.js"></script>
+</html>

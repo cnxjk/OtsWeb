@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>语音翻译</title>
+<link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	width: 200px;
+	height: 200px;
+}
+
+.center-in-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+</style>
+<!--  -->
+<body>
+	<div class="center-in-center" id="microphone">
+		<div class="layui-progress layui-progress-big" lay-filter="progress">
+			<div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+		</div>
+		<div>
+			<img alt="" src="font/microphone.png" class="layui-btn">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/config_model.js"></script>
+</html>
